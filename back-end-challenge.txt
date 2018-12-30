@@ -1,0 +1,13 @@
+Good Uncle would like to sell meal plans.  As part of the build to support meal plans, we will need a small webapp to allow internal staff to enter and edit meal plan information.  Each plan will have a name, weekly cost, spring semester start and end dates, and fall semester start and end dates.  Each plan will be associated with one and only one of the markets in which we operate.  To help educate customers about our meal plans, internal users will also need to be able to enter three pieces of marketing text that will be displayed in our customer-facing apps, including our mobile apps.  In addition, some of the schools where we operate have trimesters rather than semesters, so internal users will need to have the option to enter the start and end date for a third academic period.
+
+Because many of the meal plans will have similar attributes, users of the webapp will need the ability to duplicate a meal plan.
+
+If a customer signs up for a meal plan, the id of the meal plan will be stored in the 'mealPlanId' key on the customer object.  Customer objects are stored in a 'users' table in our MongoDB database.  Assume that a user object has two keys: 'id' and 'mealPlanId'.  Importantly, if an internal user of the webapp deletes a meal plan, that operation will need to clear the 'mealPlan' key on all users tagged with the deleted meal plan and replace it with an empty string.
+
+Build a service and API in Go that uses a MongoDB table to accomplish all of the above.  In addition, the API should allow for unauthenticated GET requests to retrieve all meal plans, all meal plans in a particular market, and a meal plan by id.  All other operations should be authenticated, including a special GET to retrieve a meal plan by a user id.  Authentication can be accomplished in whatever way you would like --- just make sure the service is bulletproof.
+
+We like AWS Lambda at Good Uncle, and if you'd like you may also build this service as a Lambda.
+
+You don't need to create a front-end for this project, but if it helps, go right ahead.  You also don't need to write tests for this project, but again, if that is your preferred process, go for it.
+
+Please include a readme outlining how to run the service on a unix-based operating system along with documentation of the API.
