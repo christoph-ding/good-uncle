@@ -38,6 +38,19 @@ func plansDelete(w http.ResponseWriter, r *http.Request) {
   fmt.Fprintln(w, "deleting plan")
 }
 
+func planDuplicate(w http.ResponseWriter, r *http.Request) {
+  fmt.Fprintln(w, "duplicating plan")
+}
+
+// Users
+func userSignUp(w http.ResponseWriter, r *http.Request) {
+  fmt.Fprintln(w, "creating user")
+}
+
+func userAddMealPlan(w http.ResponseWriter, r *http.Request) {
+  fmt.Fprintln(w, "adding meal plan to user")
+}
+
 // create server
 func main() {
   fmt.Println("creating server ...")
@@ -45,6 +58,15 @@ func main() {
   r := mux.NewRouter()
 
   r.HandleFunc("/plans", plansAll).Methods("GET")
+  r.HandleFunc("/plans/market/{id}", plansByMarket).Methods("GET")
+  r.HandleFunc("/plans/id/{id}", plansByID).Methods("GET")
+  r.HandleFunc("/plans", plansCreate).Methods("POST")
+  r.HandleFunc("/plans", plansUpdate).Methods("PUT")
+  r.HandleFunc("/plans", plansDelete).Methods("DELETE")
+  r.HandleFunc("/plans/duplicate", planDuplicate).Methods("POST")
+  r.HandleFunc("/user", userSignUp).Methods("POST")
+  r.HandleFunc("/user/add-plan", userAddMealPlan).Methods("PUT")
+
   if err := http.ListenAndServe(":3000", r); err != nil {
     log.Fatal(err)
   }
