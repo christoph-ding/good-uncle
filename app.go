@@ -3,9 +3,9 @@ package main
 import (
   "fmt"
   "net/http"
-  // "log"
+  "log"
 
-  // "github.com/gorilla/mux"
+  "github.com/gorilla/mux"
 )
 
 // Endpoints by feature
@@ -42,4 +42,10 @@ func plansDelete(w http.ResponseWriter, r *http.Request) {
 func main() {
   fmt.Println("creating server ...")
 
+  r := mux.NewRouter()
+
+  r.HandleFunc("/plans", plansAll).Methods("GET")
+  if err := http.ListenAndServe(":3000", r); err != nil {
+    log.Fatal(err)
+  }
 }
