@@ -7,7 +7,7 @@ import (
 
   "gopkg.in/mgo.v2/bson"
   "time"
-  
+
   "github.com/gorilla/mux"
 )
 
@@ -31,6 +31,10 @@ type Plan struct {
   textThree     string        `bson:"textThree" json:"textThree"`
 }
 
+type User struct {
+  ID            bson.ObjectId `bson:"_id" json:"id"`
+  mealPlanId    []string      `bson:"mealPlanId" json:"mealPlanId"`
+}
 
 // Endpoints by feature
 // I omit adding the descriptor 'handler' or 'endpoint' here because I thought 
