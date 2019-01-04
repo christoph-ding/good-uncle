@@ -3,9 +3,9 @@ package dao
 import (
   "log"
 
-  "github.com/mlabouardy/movies-restapi/models"
   mgo "gopkg.in/mgo.v2"
-  "gopkg.in/mgo.v2/bson"
+  . "github.com/ironpup/good-uncle/models"
+  // "gopkg.in/mgo.v2/bson"
 )
 
 // Data base connection object
@@ -16,7 +16,17 @@ type MealPlanDAO struct {
 
 var db *mgo.Database
 
-// CONSTANTS - plans, users <- should probably be moved out <- this file should ONLY give the dao
+const (
+  PLANS_COLLECTION = "plans"
+)
+
+func (m *MealPlanDAO) Connect() {
+  session, err := mgo.Dial(m.Server)
+  if err != nil {
+    log.Fatal(err)
+  }
+  db = session.DB(m.Database)
+}
 
 // a query for each endpoint function
 // func plansAll(w http.ResponseWriter, r *http.Request) {
@@ -25,7 +35,16 @@ var db *mgo.Database
 
 // func plansByID(w http.ResponseWriter, r *http.Request) {
 
-// func plansCreate(w http.ResponseWriter, r *http.Request) {
+// Insert a movie into database
+// func (m *MoviesDAO) Insert(movie Movie) error {
+//   err := db.C(COLLECTION).Insert(&movie)
+//   return err
+// }
+
+func (m *MealPlanDAO) plansCreate(plan Plan) error  {
+  err := db.C(PLANS_COLLECTION).Insert(&plan)
+  return err
+}
 
 // func plansUpdate(w http.ResponseWriter, r *http.Request) {
 
